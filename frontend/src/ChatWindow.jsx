@@ -4,6 +4,7 @@ import { MyContext } from "./MyContext.jsx"
 import { useContext, useEffect, useState } from "react"
 import { ScaleLoader } from "react-spinners";
 
+const API = "https://gemai-a-smart-writing-assistant.onrender.com/api";
 const ChatWindow = () => {
 
   const { prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats ,setNewChat} = useContext(MyContext);
@@ -25,7 +26,7 @@ const ChatWindow = () => {
       })
     }
     try {
-      const response = await fetch("http://localhost:8080/api/chat", options);
+      const response = await fetch(`${API}/chat`, options);
       const res = await response.json()
       setReply(res.reply)
       console.log(res);

@@ -3,13 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext";
 import { v1 as uuidv1 } from "uuid"
 
+const API = "https://gemai-a-smart-writing-assistant.onrender.com/api";
 const Sidebar = () => {
   const { allThreads, setALLThreads, setNewChat, currThreadId, setPrompt, setReply, setCurrThreadId, prevChats, setPrevChats } = useContext(MyContext);
   const [isLoadingThread, setIsLoadingThread] = useState(false);
 
   const getAllThreads = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/thread")
+      const response = await fetch(`${API}/thread`)
       const res = await response.json();
       const filteredData = res.map(thread => (
         {
@@ -45,7 +46,7 @@ const Sidebar = () => {
     setIsLoadingThread(true);
     setCurrThreadId(threadId);
     try {
-      const response = await fetch(`http://localhost:8080/api/thread/${threadId}`);
+      const response = await fetch(`${API}/thread/${threadId}`);
       const res = await response.json();
       console.log(res);
 
@@ -61,7 +62,7 @@ const Sidebar = () => {
   //delete thread by threadId(uuid)
   const deleteThread = async (threadId) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, { method: "DELETE" })
+      const response = await fetch(`${API}/thread/${threadId}`, { method: "DELETE" })
       const res = await response.json();
       console.log(res);
 
