@@ -1,4 +1,4 @@
-import "./app.css"
+import "./App.css"
 import Sidebar from './Sidebar'
 import ChatWindow from './ChatWindow'
 import { MyContext } from './MyContext'
