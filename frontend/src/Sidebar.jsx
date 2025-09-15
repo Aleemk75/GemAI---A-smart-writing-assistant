@@ -80,7 +80,7 @@ const Sidebar = () => {
     <section className="sidebar">
       {/* new chat btn */}
       <button onClick={createNewChat}>
-        <img src="src/assets/gemAI.png" alt="logo" className="logo" />
+        <img src="/gemAI.png" alt="logo" className="logo" />
         <span><i className="fa-solid fa-pen-to-square"></i></span>
       </button>
 
@@ -108,7 +108,7 @@ const Sidebar = () => {
 
       {/* sign app owner */}
       <div className="sign">
-        <img src="src/assets/gemAI.png" alt="logo" className="logo2" />
+        <img src="/gemAI.png" alt="logo" className="logo2" />
         <p> By Aleemkhan &hearts;</p>
       </div>
     </section>
