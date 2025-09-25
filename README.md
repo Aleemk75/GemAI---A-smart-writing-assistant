@@ -67,7 +67,9 @@ npm start
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/ec2c5ce0-a7b9-4432-9e36-908521c7b8ef" />
 
 
-✨ Future Improvements
+
+
+✨ **Future Improvements**
  Authentication & Authorization for secure user sessions,
  
 Multi-language support,
