@@ -64,6 +64,8 @@ npm start
 
 📸 Screenshots
 
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/ec2c5ce0-a7b9-4432-9e36-908521c7b8ef" />
+
 
 ✨ Future Improvements
 **JWT Authentication** for secure user sessions
@@ -75,7 +77,6 @@ Dark mode toggle
 This project is licensed under the MIT License.
 
 👨‍💻 Author
-
 Aleem Khan
 
 LinkedIn
