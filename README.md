@@ -17,8 +17,7 @@ Built with a modern stack including **React.js**, **Node.js**, and **MongoDB**, 
 ## 🛠️ Tech Stack
 **Frontend:** React.js, 
 **Backend:** Node.js, Express.js, REST APIs  
-**Database:** MongoDB  
-**Authentication:** JWT  
+**Database:** MongoDB    
 **Other Tools:** Git, Render (Deployment), Postman
 
 ---
