@@ -70,6 +70,7 @@ npm start
 
 
 ✨ **Future Improvements**
+
  Authentication & Authorization for secure user sessions,
  
 Multi-language support,
@@ -84,8 +85,5 @@ This project is licensed under the MIT License.
 👨‍💻 Author
 Aleem Khan
 
-LinkedIn
+LinkedIn:https://www.linkedin.com/in/aleemkh4n/
 
-GitHub
-
-Portfolio
