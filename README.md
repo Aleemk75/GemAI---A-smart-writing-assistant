@@ -68,9 +68,12 @@ npm start
 
 
 ✨ Future Improvements
- Authentication & Authorization for secure user sessions
-Multi-language support
-Voice-enabled assistant
+ Authentication & Authorization for secure user sessions,
+ 
+Multi-language support,
+
+Voice-enabled assistant,
+
 Dark mode toggle
 
 📜 License
