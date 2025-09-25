@@ -68,7 +68,7 @@ npm start
 
 
 ✨ Future Improvements
-**JWT Authentication** for secure user sessions
+ Authentication & Authorization for secure user sessions
 Multi-language support
 Voice-enabled assistant
 Dark mode toggle
