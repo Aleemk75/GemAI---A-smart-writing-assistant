@@ -38,10 +38,13 @@ For frontend: cd frontend , npm install
 
 
 **Set environment variables**
+
 Create a .env file in the backend directory and add:
 
 PORT=8080
+
 MONGO_URI=your_mongodb_connection_string
+
 GEMINI_API_KEY=your_google_gemini_api_key
 
 Start backend:
