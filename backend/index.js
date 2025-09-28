@@ -18,7 +18,11 @@ import chatRoutes from "./routes/chat.route.js";
 
 // Middleware to parse JSON bodies.
 app.use(express.json());
-app.use(cors());
+let frontend_origin = process.env.FRONTEND_URL;
+app.use(cors({
+    origin: frontend_origin,
+     methods: ["GET", "POST", "PUT", "DELETE"],
+}));
 
 app.use("/api", chatRoutes);
 
