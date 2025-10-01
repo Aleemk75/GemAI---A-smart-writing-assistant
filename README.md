@@ -89,7 +89,9 @@ Check out my [LinkedIn Profile](https://www.linkedin.com/in/aleemkh4n/)
 This project is licensed under the MIT License.
 
 👨‍💻 Author
+
 Aleem Khan
 
-LinkedIn:https://www.linkedin.com/in/aleemkh4n/
+Check out my [LinkedIn Profile](https://www.linkedin.com/in/aleemkh4n/)
+
 
