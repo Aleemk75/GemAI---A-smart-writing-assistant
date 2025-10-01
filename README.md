@@ -81,7 +81,11 @@ Voice-enabled assistant,
 
 Dark mode toggle
 
-📜 License
+👤 Author
+
+Aleem Khan
+
+Check out my [LinkedIn Profile](https://www.linkedin.com/in/aleemkh4n/)
 This project is licensed under the MIT License.
 
 👨‍💻 Author
