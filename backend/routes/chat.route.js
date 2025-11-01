@@ -1,13 +1,16 @@
 import express from "express";
 const router = express.Router();
 
-import { chat, deleteThread, getAllThreads, getThread } from "../controller/thread.controller.js";
+import { chat, getUserThreads , getAllThreads, getThread,deleteThread} from "../controller/thread.controller.js";
 import { Thread } from "../models/thread.model.js";
+import {authMiddleware} from "../middleware/authMiddleware.js";
 
-router.post("/chat", chat);
-router.get("/thread", getAllThreads);
-router.get("/thread/:threadId", getThread);
-router.delete("/thread/:threadId", deleteThread);
+
+router.post("/chat",authMiddleware, chat);
+router.get("/threads",authMiddleware, getUserThreads);
+router.get("/thread",authMiddleware, getAllThreads);
+router.get("/thread/:threadId",authMiddleware, getThread);
+router.delete("/thread/:threadId",authMiddleware, deleteThread);
 
 router.post('/test', async(req, res)=>{
 

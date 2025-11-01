@@ -1,6 +1,5 @@
 import express from "express";
 import "dotenv/config";
-
 const app = express();
 import { dbConnect } from "./DB/db.js";
 import cors from "cors";
@@ -13,28 +12,25 @@ dbConnect()
         console.log('DB connection error :', error);
     })
 
-
+// Import routes
+import authRoutes from "./routes/auth.route.js";
 import chatRoutes from "./routes/chat.route.js";
 
 // Middleware to parse JSON bodies.
 app.use(express.json());
 let frontend_origin = process.env.FRONTEND_URL;
 app.use(cors({
-    origin: frontend_origin,
-     methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: frontend_origin,
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
 
+
+// Routes
+app.use('/api/auth', authRoutes);
 app.use("/api", chatRoutes);
 
-// app.post('/test', async (req, res) => {
 
-//     let { prompt } = req.body;
-
-//     const generatedText = await getGemeniResponse(prompt);
-
-//     res.send(generatedText);
-
-// });
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

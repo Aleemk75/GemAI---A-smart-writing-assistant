@@ -2,6 +2,7 @@ import { Thread } from "../models/thread.model.js";
 import { getGemeniResponse } from "../utils/prepAI.js";
 
 export const getAllThreads = async (req, res) => {
+
     try {
         const allThreads = await Thread.find({}).sort({ createdAt: -1 }); //-1 → descending (newest first) 1 → ascending (oldest first)
         res.status(200).json(allThreads);
@@ -12,6 +13,18 @@ export const getAllThreads = async (req, res) => {
     }
 }
 
+export const getUserThreads = async (req, res) => {
+
+    try {
+        const userId = req.user.userId;
+        const userThreads = await Thread.find({ user: userId }).sort({ createdAt: -1 }); //-1 → descending (newest first) 1 → ascending (oldest first)
+        res.status(200).json(userThreads);
+
+    } catch (error) {
+        console.log("error inn getUserThreads controller", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
 
 export const getThread = async (req, res) => {
     try {
@@ -20,7 +33,7 @@ export const getThread = async (req, res) => {
         if (!threadId) {
             return res.status(404).json({ message: "Not Found!" })
         }
-        const thread = await Thread.findOne({threadId});
+        const thread = await Thread.findOne({ threadId });
         res.status(200).json(thread.messages);
 
     } catch (error) {
@@ -36,7 +49,7 @@ export const deleteThread = async (req, res) => {
             return res.status(400).json({ message: "Not Found!" })
         }
 
-        const thread = await Thread.findOne({threadId});
+        const thread = await Thread.findOne({ threadId });
 
         if (!thread) {
             return res.status(400).json({ message: "Thread Not Found!" })
@@ -56,6 +69,9 @@ export const deleteThread = async (req, res) => {
 
 // chat function
 export const chat = async (req, res) => {
+    // console.log(req.user);
+    const userId = req.user.userId;// from JWT middleware
+    // console.log("user from  jwt ", req.user);
 
     const { threadId, message } = req.body;
     if (!threadId || !message) {
@@ -70,9 +86,13 @@ export const chat = async (req, res) => {
 
             thread = new Thread({
                 threadId,
+                user: userId,
                 title: message,
                 messages: [{ role: "user", content: message }]
             });
+
+            // console.log(thread);
+
 
         } else {
             // append new messages in the present thread

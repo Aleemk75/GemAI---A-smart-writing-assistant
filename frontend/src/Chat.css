@@ -1,11 +1,12 @@
 .chats {
-    max-width: 700px;
+    max-width: 750px;
     overflow-y: scroll;
     padding: 8rem;
 }
+
 /* Hide scrollbar but still allow scroll */
 .chats::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, Edge */
+    display: none; /* for Chrome, Safari, Edge */
 }
 
 .userDiv {
@@ -14,19 +15,31 @@
     font-size: 0.9rem;
 }
 
-
 .assistantDiv {
     text-align: left;
     font-size: 0.9rem;
 }
 
 .userMessage {
-    background-color: #323232;
-    padding: 10px 20px;
-    border-radius: 14px;
+    background: linear-gradient(135deg, #c15f3c 0%, #a04d2f 100%);
+    color: #ffffff;
+    padding: 8px 20px;
+   border-radius: 24% 8%;;
     margin-left: 15rem;
+    margin-bottom: 8px;
     max-width: 500px;
     width: fit-content;
+}
+
+.assistantMessage {
+    background-color: #262624;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    max-width: 500px;
+    width: fit-content;
+    border: 1px solid rgba(177, 173, 161, 0.3);
 }
 
 .hljs {

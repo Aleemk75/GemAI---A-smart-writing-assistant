@@ -9,7 +9,7 @@ import "highlight.js/styles/github-dark.css";
 
 
 const Chat = () => {
-  const { newChat, prevChats, reply } = useContext(MyContext);
+  const { newChat, prevChats, reply , user} = useContext(MyContext);
   const [latestReply, setLatestReply] = useState(null);
   const chatEndRef = useRef(null);
   useEffect(() => {
@@ -43,7 +43,7 @@ const Chat = () => {
 
   return (
     <>
-      {newChat && <h1>Start a New Chat</h1>}
+      {newChat && <h1>Welcome! {user.name.split(" ")[0]}</h1>}
       <div className="chats">
         {prevChats?.slice(0, -1).map((chat, idx) => (
           <div

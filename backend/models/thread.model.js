@@ -38,7 +38,13 @@ const ThreadSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now,
-    }
+    },
+      // Link each thread to a user
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // matches your user model name
+    required: true,
+  },
 
 });
 

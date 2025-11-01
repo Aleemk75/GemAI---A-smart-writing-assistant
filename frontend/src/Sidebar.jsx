@@ -2,15 +2,20 @@ import "./Sidebar.css";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext";
 import { v1 as uuidv1 } from "uuid"
-
-const API = "https://gemai-a-smart-writing-assistant.onrender.com/api";
+const API = import.meta.env.VITE_API_URL;
+//  || "https://gemai-a-smart-writing-assistant.onrender.com/api";
 const Sidebar = () => {
-  const { allThreads, setALLThreads, setNewChat, currThreadId, setPrompt, setReply, setCurrThreadId, prevChats, setPrevChats } = useContext(MyContext);
+   const { allThreads, setALLThreads, setNewChat, currThreadId, setPrompt, setReply, setCurrThreadId, prevChats, setPrevChats, user, handleLogout } = useContext(MyContext);
   const [isLoadingThread, setIsLoadingThread] = useState(false);
 
-  const getAllThreads = async () => {
+  const getUserThreads = async () => {
     try {
-      const response = await fetch(`${API}/thread`)
+      const response = await fetch(`${API}/threads`,{
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+      })
+      
       const res = await response.json();
       const filteredData = res.map(thread => (
         {
@@ -29,7 +34,7 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    getAllThreads();
+    getUserThreads();
   }, [currThreadId])
 
   //create a new chat button
@@ -46,7 +51,11 @@ const Sidebar = () => {
     setIsLoadingThread(true);
     setCurrThreadId(threadId);
     try {
-      const response = await fetch(`${API}/thread/${threadId}`);
+      const response = await fetch(`${API}/thread/${threadId}`,{
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+      });
       const res = await response.json();
       console.log(res);
 
@@ -62,7 +71,10 @@ const Sidebar = () => {
   //delete thread by threadId(uuid)
   const deleteThread = async (threadId) => {
     try {
-      const response = await fetch(`${API}/thread/${threadId}`, { method: "DELETE" })
+      const response = await fetch(`${API}/thread/${threadId}`, { headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+         method: "DELETE" })
       const res = await response.json();
       console.log(res);
 
@@ -79,8 +91,12 @@ const Sidebar = () => {
   return (
     <section className="sidebar">
       {/* new chat btn */}
+      <div className="logoDiv">
+       <img src="/gemAILogo.png" alt="logo" className="logo1" />
+      </div>
       <button onClick={createNewChat}>
-        <img src="/gemAI.png" alt="logo" className="logo" />
+        {/* <img src="/gemAILogo.png" alt="logo" className="logo" /> */}
+        <p>New Chat</p>
         <span><i className="fa-solid fa-pen-to-square"></i></span>
       </button>
 
@@ -106,13 +122,18 @@ const Sidebar = () => {
       </ul>
 
 
-      {/* sign app owner */}
-      <div className="sign">
-        <img src="/gemAI.png" alt="logo" className="logo2" />
-        <p> By Aleemkhan &hearts;</p>
-      </div>
+{/* sign app owner */}
+<div className="sign">
+  {user && (
+    <div className="sidebar-user">
+      <span className="user-circle">{user.name.charAt(0).toUpperCase()}</span>
+      <p className="username">{user.name}</p>
+    </div>
+  )}
+</div>
     </section>
   )
 }
 
 export default Sidebar
+

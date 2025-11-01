@@ -1,48 +1,48 @@
 import "dotenv/config";
 
 export async function getGemeniResponse(prompt) {
-
- const API_KEY = process.env.GEMINI_API_KEY; 
+  const API_KEY = process.env.GEMINI_API_KEY;
   if (!API_KEY) {
-    console.error('API key not found. Please set the GEMINI_API_KEY environment variable.');
-    return;
+    console.error("❌ API key not found. Please set the GEMINI_API_KEY environment variable.");
+    return null;
   }
 
-  // The endpoint for the Gemini API.
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
-    // The data payload for the POST request.
   const payload = {
-    "contents": [
+    contents: [
       {
-        "parts": [
-          {
-            "text": prompt,
-          }
-        ]
-      }
-    ]
+        parts: [{ text: prompt }],
+      },
+    ],
   };
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  };
+
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      console.error(`❌ API request failed with status: ${response.status}`);
+      const errorData = await response.text();
+      console.error("Response:", errorData);
+      return null;
     }
 
-       try {
-        const response = await fetch(url, options);
-        // Parse the JSON response to js object;
-        const data = await response.json();
+    const data = await response.json();
 
-        const generatedText = data.candidates[0].content.parts[0].text;
-        // console.log(generatedText);
-        return generatedText;
+    const generatedText =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text || "⚠️ No response text found.";
 
-    } catch (error) {
-        console.log(error);
-        
-    }
-
+    return generatedText.trim();
+  } catch (error) {
+    console.error("❌ Error while fetching Gemini response:", error.message);
+    return null;
+  }
 }
