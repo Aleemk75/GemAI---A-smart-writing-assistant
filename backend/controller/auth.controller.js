@@ -21,9 +21,9 @@ const generateToken = (userId) => {
 export const emailSignup = async (req, res) => {
 
   // Implementation for email signup
-if (!req.body || Object.keys(req.body).length === 0) {
-  return res.status(400).json({ message: "Credentials required!" });
-}
+  if (!req.body || Object.keys(req.body).length === 0) {
+    return res.status(400).json({ message: "Credentials required!" });
+  }
   let { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.status(400).json({ message: "Name, email and password are required" });
@@ -53,7 +53,9 @@ if (!req.body || Object.keys(req.body).length === 0) {
     // otp generation
     const otp = Math.floor(100000 + Math.random() * 900000);
     console.log("otp", otp);
+    console.log("error in redisclient");
     await redisClient.set(`otp:${email}`, otp, 'EX', 300); // Store OTP in Redis with 5 min expiry
+    console.log("error just  before sending email");
 
     // send email
     await sendMail(existingUser.email, "Verify your Email", `Your OTP code is ${otp}`);
@@ -88,17 +90,17 @@ export const verifyEmail = async (req, res) => {
   const token = generateToken(user._id);
 
 
-    // ✅ Return token + user info to frontend
-    res.status(200).json({
-      success: true,
-      message: "Login successful",
-      token, // 👈 your frontend will now get this
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
+  // ✅ Return token + user info to frontend
+  res.status(200).json({
+    success: true,
+    message: "Login successful",
+    token, // 👈 your frontend will now get this
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    },
+  });
 
 }
 
@@ -137,7 +139,7 @@ export const emailLogin = async (req, res) => {
     await user.save();
 
     const token = generateToken(user._id);
-    
+
     // ✅ Return token + user info to frontend
     res.status(200).json({
       success: true,
