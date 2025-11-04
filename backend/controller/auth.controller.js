@@ -61,7 +61,8 @@ export const emailSignup = async (req, res) => {
 
     console.log(' OTP stored in Upstash Redis');
 
-
+console.log(process.env.GMAIL);
+console.log(process.env.GMAIL_APP_PASSWORD);
     // send email
     const res = await sendMail(existingUser.email, "Verify your Email", `Your OTP code is ${otp}`);
  if(!res){
