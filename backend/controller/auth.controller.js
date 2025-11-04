@@ -52,10 +52,15 @@ export const emailSignup = async (req, res) => {
 
     // otp generation
     const otp = Math.floor(100000 + Math.random() * 900000);
-    console.log("otp", otp);
-    console.log("error in redisclient");
-    await redisClient.set(`otp:${email}`, otp, 'EX', 300); // Store OTP in Redis with 5 min expiry
-    console.log("error just  before sending email");
+
+
+    await redisClient.set(`otp:${email}`, otp, {
+      ex: 60,   // expires in 60 seconds
+      nx: true, // only set if not exists (optional)
+    });
+
+    console.log(' OTP stored in Upstash Redis');
+
 
     // send email
     await sendMail(existingUser.email, "Verify your Email", `Your OTP code is ${otp}`);
@@ -77,9 +82,12 @@ export const verifyEmail = async (req, res) => {
 
   const existingOTP = await redisClient.get(`otp:${email}`);
 
-  if (otp !== existingOTP) {
-    return res.status(401).json({ message: "Invalid OTP " })
+
+  // Convert to string for comparison
+  if (String(otp) !== String(existingOTP)) {
+    return res.status(401).json({ message: "Invalid OTP" });
   }
+
   const user = await User.findOne({ email });
   if (!user) {
     return res.status(401).json({ message: "User not Exists" })
