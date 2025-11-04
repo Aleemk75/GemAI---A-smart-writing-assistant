@@ -1,5 +1,5 @@
 import { Thread } from "../models/thread.model.js";
-import { getGemeniResponse } from "../utils/prepAI.js";
+import { getGemeniResponse } from "../utils/AIresponse.js";
 
 export const getAllThreads = async (req, res) => {
 

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken"
 import { OAuth2Client } from 'google-auth-library';
 import User from '../models/user.model.js';
 import dotenv from 'dotenv';
-import { sendMail } from '../utils/gmailAuth.js';
+import { sendMail } from '../utils/emailService.js';
 import redisClient from "../DB/redis.js";
 dotenv.config();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -61,14 +61,9 @@ export const emailSignup = async (req, res) => {
 
     console.log(' OTP stored in Upstash Redis');
 
-console.log(process.env.GMAIL);
-console.log(process.env.GMAIL_APP_PASSWORD);
     // send email
-    const res = await sendMail(existingUser.email, "Verify your Email", `Your OTP code is ${otp}`);
- if(!res){
-   console.log( "email sent " , res);
- }
-
+     await sendMail(existingUser.email, "Verify your Email", `Your OTP code is ${otp}`);
+ 
     res.status(201).json({ message: "user registered succesfully! we have sent a mail" });
   } catch (error) {
     console.error("Email signup error:", error);
@@ -101,11 +96,11 @@ export const verifyEmail = async (req, res) => {
   const token = generateToken(user._id);
 
 
-  // ✅ Return token + user info to frontend
+  //  Return token + user info to frontend
   res.status(200).json({
     success: true,
     message: "Login successful",
-    token, // 👈 your frontend will now get this
+    token, // your frontend will now get this
     user: {
       _id: user._id,
       name: user.name,
