@@ -2,6 +2,10 @@ import nodemailer from "nodemailer"
 import dotenv from "dotenv";
 dotenv.config();
 
+console.log(process.env.GMAIL);
+console.log(process.env.GMAIL_APP_PASSWORD);
+
+
 export async function sendMail(recipientEmail, subject, text) {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",

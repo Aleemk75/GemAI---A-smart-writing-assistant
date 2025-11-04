@@ -63,8 +63,10 @@ export const emailSignup = async (req, res) => {
 
 
     // send email
-    await sendMail(existingUser.email, "Verify your Email", `Your OTP code is ${otp}`);
-
+    const res = await sendMail(existingUser.email, "Verify your Email", `Your OTP code is ${otp}`);
+ if(!res){
+   console.log( "email sent " , res);
+ }
 
     res.status(201).json({ message: "user registered succesfully! we have sent a mail" });
   } catch (error) {
