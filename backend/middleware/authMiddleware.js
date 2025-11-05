@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 import User from "../models/user.model.js";
-
+import redisClient from "../DB/redis.js";
 export const authMiddleware = async (req, res, next) => {
   try {
     let token;
@@ -9,6 +9,7 @@ export const authMiddleware = async (req, res, next) => {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
+
 
     // Check if token exists
     if (!token) {
@@ -20,9 +21,19 @@ export const authMiddleware = async (req, res, next) => {
 
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.userId;
+    // await redisClient.del(`user:${userId}`);
 
+    const cachedUser = await redisClient.get(`user:${userId}`);
+console.log(cachedUser);
+
+    if (cachedUser) {
+      console.log("redis in auth middleware");
+      req.user = cachedUser;
+      return next();
+    }
     // Check if user still exists
-    const user = await User.findById(decoded.userId).select('-password');
+    const user = await User.findById(userId).select('-password');
 
     if (!user) {
       return res.status(401).json({
@@ -31,8 +42,17 @@ export const authMiddleware = async (req, res, next) => {
       });
     }
 
+    //save user data to redis for future req
+    await redisClient.set(`user:${userId}`, JSON.stringify({
+      userId: user._id,
+      email: user.email,
+      name: user.name,
+    }), {
+      EX: 3600  // Expiry in seconds
+    });
+
     // Attach user to request
-    
+
     req.user = {
       userId: user._id,
       email: user.email,
