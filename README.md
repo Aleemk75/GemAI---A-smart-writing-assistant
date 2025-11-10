@@ -95,13 +95,13 @@ Testing
 ## 📸 Screenshots
 
 ### Login Page
-![Login Page](![alt text](image-3.png))
+(![alt text](image-3.png))
 
 ### Chat Interface
-![Chat Interface](![alt text](image-1.png))
+(![alt text](image-1.png))
 
 ### Chat History
-![Chat History](![alt text](image-2.png))
+(![alt text](image-2.png))
 
 Help & contribution
 - If you'd like help wiring up environment variables into the frontend (Vite) or moving the hardcoded Google client id to an env var, I can make a small PR.
