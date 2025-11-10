@@ -100,7 +100,7 @@ export const verifyEmail = async (req, res) => {
   res.status(200).json({
     success: true,
     message: "Login successful",
-    token, // your frontend will now get this
+    token, 
     user: {
       _id: user._id,
       name: user.name,
@@ -146,11 +146,11 @@ export const emailLogin = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    // ✅ Return token + user info to frontend
+    //  Return token + user info to frontend
     res.status(200).json({
       success: true,
       message: "Login successful",
-      token, // 👈 your frontend will now get this
+      token, // 
       user: {
         _id: user._id,
         name: user.name,
