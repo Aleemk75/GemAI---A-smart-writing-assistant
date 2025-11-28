@@ -4,6 +4,7 @@ const app = express();
 import { dbConnect } from "./DB/db.js";
 import cors from "cors";
 
+
 dbConnect()
     .then(() => {
         console.log("connected to DATABASE");

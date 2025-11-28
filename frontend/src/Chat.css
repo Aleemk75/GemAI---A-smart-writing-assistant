@@ -6,7 +6,8 @@
 
 /* Hide scrollbar but still allow scroll */
 .chats::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, Edge */
+    display: none;
+    /* for Chrome, Safari, Edge */
 }
 
 .userDiv {
@@ -24,7 +25,7 @@
     background: linear-gradient(135deg, #c15f3c 0%, #a04d2f 100%);
     color: #ffffff;
     padding: 8px 20px;
-   border-radius: 24% 8%;;
+    border-radius: 13%; 
     margin-left: 15rem;
     margin-bottom: 8px;
     max-width: 500px;

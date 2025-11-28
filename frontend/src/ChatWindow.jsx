@@ -8,7 +8,7 @@ const API= import.meta.env.VITE_API_URL;
 //  || "https://gemai-a-smart-writing-assistant.onrender.com/api";
 const ChatWindow = () => {
 
-  const { prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats ,setNewChat,token,handleLogout} = useContext(MyContext);
+  const { prompt, setPrompt, reply, setReply, currThreadId, prevChats, setPrevChats, newChat,setNewChat,token,handleLogout} = useContext(MyContext);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -86,7 +86,8 @@ const ChatWindow = () => {
       <ScaleLoader color="#fff" loading={loading} />
       <div className="chatInput">
         <div className="inputBox">
-          <input placeholder="Ask anything"
+          <input 
+          placeholder={newChat ? "How can I help you today?" : "Say what’s on your mind…"}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' ? getReply() : ""}

@@ -3,7 +3,7 @@ import "dotenv/config";
 export async function getGemeniResponse(prompt) {
   const API_KEY = process.env.GEMINI_API_KEY;
   if (!API_KEY) {
-    console.error("❌ API key not found. Please set the GEMINI_API_KEY environment variable.");
+    console.error("API key not found. Please set the GEMINI_API_KEY environment variable.");
     return null;
   }
 
